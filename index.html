@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8" />
+
+<head>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+<div id="canvas">
+  <div id="independentbar">
+    <input type="button" class="button" id="addIndButton" value="+" onclick="document.getElementById('addIndependent').click();" />
+  </div>
+  <div id="dependentbar">
+    <input type="button" class="button" id="addIndButton" value="+" onclick="document.getElementById('addDependent').click();" />
+  </div>
+  <div id="charts">
+    <select id="dropdown">
+      <option value="linlin">Lin/Lin</option>
+      <option value="linlog">Lin/Log</option>
+      <option value="loglin">Log/Lin</option>
+      <option value="loglog">Log/Log</option>
+    </select>
+    <input type="file" style="display:none;" id="addIndependent"></input>
+    <input type="file" style="display:none;" id="addDependent"></input>
+    <!--country map-->
+    <!--<div id="countries-map" class="mapcontainer">
+    </div>-->
+  </div>
+</div>
+
+<!--tooltip-->
+<div id="tooltip" class="hidden">
+  <p><small><span id="tooltiptitle"></span></small></p>
+  <p><strong><span id="tooltipsubtitle"></span></strong></p>
+  <hr>
+  <p><span id="tooltipsum"></span></p>
+  <p><small><span id="tooltipprojects"></span></small></p>
+</div>
+
+<!--libraries-->
+<script src="lib/d3.min.js"></script>
+<script src="lib/topojson.v1.min.js"></script>
+<script src="lib/simple-statistics.min.js"></script>
+<script src="lib/regression.min.js"></script>
+<script src="lib/jstat.min.js"></script>
+<script src="lib/d3-legend.min.js"></script>
+<script src="lib/colorbrewer.v1.min.js"></script>
+<script src="lib/d3-scale-chromatic.v1.min.js"></script>
+<script src="lib/crossfilter.min.js"></script>
+<script src="lib/jquery-3.1.1.min.js"></script>
+<script src="lib/dat.gui.min.js"></script>
+<script src="lib/select2.full.min.js"></script>
+<link href="lib/select2.min.css" rel="stylesheet" />
+
+<!--chart scripts-->
+<script src="ChoroplethMapMatrix.js"></script>
+<script src="createMap.js"></script>
+<script src="createMatrixMap.js"></script>
+
+<script>
+  // data vars
+  var geoCountries,
+      countryCodes,
+      selectedCountry,
+      remaining = 2, // # of csv files
+      //year = 2015,
+      cmm;
+
+  var EUCountries = ["AT","BE","BG","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR","HU",
+                 "IE","IT","LT","LU","LV","MT","NL","PL","PT","RO","SE","SI","SK","UK"];
+  var color = colorbrewer.Greens[7];
+  var colorDiv = colorbrewer.RdBu[7].reverse();
+  var colorPos = "#fffef7";
+  var colorNeg = "#f7fffc";
+
+  // ssv parser
+  var ssv = d3.dsvFormat(";");
+  // date parser
+  var parseDate = d3.timeParse("%Y-%m-%d %Z");
+  // tooltip var
+  var tooltip = d3.select("#tooltip");
+
+  
+  //--------
+  // Load Data
+  // load countries
+  d3.text("data/cordisref-countries.csv", function(data) {
+    cc = ssv.parse(data);
+    cc = cc.filter(function(d) { return d.language == "en"; });
+    countryCodes = d3.map();
+    cc.map(function(d) {
+      countryCodes.set(d.euCode, d.name);
+    });
+    if (!--remaining) createAll();
+  });
+
+  // load worldmap json
+  d3.json("data/world50m.json", function(data) {
+    geoCountries = topojson.feature(data, data.objects.world50m);
+    if (!--remaining) createAll();
+  });
+  
+  // create every chart
+  function createAll() {
+    cmm = ChoroplethMapMatrix();
+  }
+  
+  function transformAll(){
+    cmm.transformAll();
+  }
+  
+  function updateMatrixMaps(){
+    cmm.updateMatrixMaps();
+  }
+  
+  // update content of tooltip
+  function updateToolTip(top, left, title, subtitle, sum, projects) {
+    if((document.getElementById("charts").offsetWidth - left) < 110 )
+      left -= 180;
+    tooltip.style("top", top+"px")
+      .style("left", left+"px")
+      .select("#tooltiptitle")
+      .text(title);
+    tooltip.select("#tooltipsubtitle").text(subtitle);
+    tooltip.select("#tooltipsum").text(sum);
+    tooltip.select("#tooltipprojects").text(projects);
+    tooltip.classed("hidden", false);
+  }
+
+</script>
+</html>

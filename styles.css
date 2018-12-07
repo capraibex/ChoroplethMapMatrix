@@ -1,0 +1,259 @@
+.node {
+  box-sizing: border-box;
+  position: absolute;
+  overflow: hidden;
+}
+
+.node:hover {
+  cursor: pointer;
+  opacity: .8;
+  box-shadow: 3px 3px 15px #777;
+}
+
+.node-label {
+  padding: 4px;
+  line-height: 1em;
+  white-space: pre;
+}
+
+.node-value {
+  color: rgba(0,0,0,0.8);
+  font-size: 9px;
+  margin-top: 1px;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  cursor: pointer;
+  opacity: .8;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+label {
+  position: relative;
+  float: right;
+}
+
+.grid .tick {
+    stroke: lightgrey;
+    opacity: 0.1;
+}
+.grid path {
+      stroke-width: 0;
+}
+
+.map {
+  background-color: lightblue;
+  position: absolute;
+  left: 600px;
+  top: 100px;
+}
+
+.country {
+  fill: white;
+  stroke: #000;
+  stroke-width: .2px;
+}
+
+.country:hover {
+  cursor: pointer;
+  opacity: .8;
+}
+
+.grandparent rect {
+  fill: orange;
+}
+
+.grandparent:hover rect {
+  cursor: pointer;
+  opacity: .8;
+  box-shadow: 3px 3px 15px #777;
+}
+
+#treemap{
+  font: 10px sans-serif;
+  position: relative;
+}
+
+body {
+  font: 10px sans-serif;
+  position: relative;
+  width:98vw;
+  height:98vh;
+}
+
+.chart {
+  position: relative;
+  margin: 0.25%;
+  border: 1px solid darkgray;
+}
+
+.mapcontainer {
+  position: absolute;
+  margin: 0.25%;
+  width:300px; 
+  height:300px; 
+  float:left;
+  border: 1px solid darkgray;
+  background-color: lightblue;
+}
+
+#filterbar {
+  height:2%;
+  position: relative;
+  margin-left: 0.25%;
+  margin-right: 0.25%;
+  border: 1px solid darkgray;
+  text-align:center;
+  background-color: whitesmoke;
+}
+
+#independentbar {
+  height:20px;
+  left: 21px;
+  margin-right: 20px;
+  position: relative;
+  border: 1px solid darkgray;
+  background-color: whitesmoke;
+}
+
+#dependentbar {
+  width:20px;
+  position: relative;
+  border: 1px solid darkgray;
+  background-color: whitesmoke;
+  height: 98%;
+}
+
+#canvas{width: inherit; height: inherit;}
+#charts{
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  right: 45px;
+  width: 99%; 
+  height: 98%;
+}
+
+.button {
+  width:20px;
+  height: 20px;
+  padding: 0px;
+}
+
+.independentLabel{
+  position: absolute;
+}
+
+.dependentLabel{
+
+}
+
+.ddrotated {
+  position: absolute;
+  left: -18px;
+  -webkit-transform: rotate(-90deg);  /* Saf3.1+, Chrome */
+  -moz-transform: rotate(-90deg);  /* FF3.5+ */
+  -ms-transform: rotate(-90deg);  /* IE9 */
+  -o-transform: rotate(-90deg);  /* Opera 10.5 */
+  transform: rotate(-90deg);
+}
+
+.dd {
+  position: absolute;
+  height: 20px;
+}
+
+
+
+
+#treemap-chart {width:24%; height:47.5%; float:left;}
+#topics-barchart {width:37%; height: 47.5%; float: left; overflow: hidden}
+#timeline-chart {width:37%; height: 47.5%; float: right;}
+/*#countries-map {width:61.5%; height: 47.75%; float: left; background-color: lightblue;}*/
+#countries-barchart {width:37%; height: 47.75%; float: right; overflow: hidden} /*overflow-x: hidden; overflow-y: auto}*/
+
+#tooltip {
+  position: absolute;
+  max-width: 300px;
+  height: auto;
+  padding: 10px;
+  background-color: white;
+  -webkit-border-radius: 10px;
+  /*-moz-border-radius: 10px;*/
+  border-radius: 10px;
+  -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  /*-moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);*/
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+.moveGUI{
+    position: absolute;;
+}
+
+#tooltip.hidden {
+  display: none;
+}
+
+#tooltip p {
+  text-align:center;
+  margin: 0;
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+  /*clip-path: url(#clip);*/
+}
+
+.reset {
+  font-size: smaller;
+  color: #f00;
+}
+
+.resetbar {
+  font-family: sans-serif;
+  font-size: 13px;
+  display: inline-block;
+  text-align: center;
+}
+
+.zoom {
+  cursor: ew-resize;
+  fill: none;
+  pointer-events: all;
+}
+
+.verticalLine{
+  height: 100%;
+  font-family: sans-serif;
+  font-size: 13px;
+  border-left: medium solid darkgray;
+  display: inline-block;
+  text-align:center;
+}
+
+.verticalLine .value {
+  font-weight: bold;
+}
